@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Studio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+    <link icon="favicon.ico" rel="icon" type="image/x-icon" href="images/logo.avif">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <script src="js/init.js"></script>
+
+
+</head>
+
+<body>
+
+    <div id="authScreen" class="auth-screen">
+        <h1><i class="fas fa-qrcode"></i> QR Studio</h1>
+        <p class="subtitle">Sign in or create an account to continue</p>
+
+        <div class="auth-tabs">
+            <button type="button" class="auth-tab active" id="tabSignIn">Sign In</button>
+            <button type="button" class="auth-tab" id="tabSignUp">Sign Up</button>
+        </div>
+
+        <form id="authForm">
+            <div class="form-group">
+                <label for="authEmail">Email</label>
+                <input type="email" id="authEmail" placeholder="you@example.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="authPassword">Password</label>
+                <input type="password" id="authPassword" placeholder="••••••••" required minlength="6"
+                    autocomplete="current-password">
+            </div>
+
+            <div id="authMessage" class="auth-message"></div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="authSubmitBtn" style="margin-top: 0.5rem;">
+                <i class="fas fa-sign-in-alt" id="authSubmitIcon"></i>
+                <span id="authSubmitText">Sign In</span>
+            </button>
+        </form>
+    </div>
+
+    <div id="appContainer" class="app-container hidden">
+        <div class="auth-section">
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span id="userEmail">—</span>
+            </div>
+            <button id="logoutBtn" class="btn btn-outline btn-sm">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+
+        <div>
+            <h1><i class="fas fa-qrcode"></i> QR Studio</h1>
+
+            <div class="form-group">
+                <label for="urlInput">URL</label>
+                <input type="url" id="urlInput" placeholder="https://example.com" value="https://example.com">
+            </div>
+
+            <div class="form-group">
+                <label>Foreground color</label>
+                <div class="color-row">
+                    <input type="color" id="fgColor" value="#000000">
+                    <input type="text" id="fgColorText" value="#000000" style="flex:1">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Background color</label>
+                <div class="color-row">
+                    <input type="color" id="bgColor" value="#ffffff">
+                    <input type="text" id="bgColorText" value="#ffffff" style="flex:1">
+                </div>
+            </div>
+
+            <div class="flex-between" style="gap: 1rem;">
+                <div class="form-group" style="flex:1">
+                    <label for="sizeSelect">Size</label>
+                    <select id="sizeSelect">
+                        <option value="200">200 x 200</option>
+                        <option value="300" selected>300 x 300</option>
+                        <option value="400">400 x 400</option>
+                        <option value="500">500 x 500</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex:1">
+                    <label for="errorSelect">Error correction</label>
+                    <select id="errorSelect">
+                        <option value="L">L (Low)</option>
+                        <option value="M" selected>M (Medium)</option>
+                        <option value="Q">Q (Quartile)</option>
+                        <option value="H">H (High)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="action-buttons" style="justify-content: flex-start; margin-top: 0.5rem;">
+                <button id="saveQrBtn" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save to database
+                </button>
+                <button id="updateQrBtn" class="btn btn-outline hidden">
+                    <i class="fas fa-pen"></i> Update selected
+                </button>
+                <button id="cancelEditBtn" class="btn btn-outline hidden">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </div>
+
+        <div class="qr-preview">
+            <canvas id="qrcodeCanvas"></canvas>
+            <div class="action-buttons" style="margin-top: 1.5rem;">
+                <button id="downloadPngBtn" class="btn btn-outline btn-sm"><i class="fas fa-image"></i> PNG</button>
+                <button id="downloadSvgBtn" class="btn btn-outline btn-sm"><i class="fas fa-vector-square"></i>
+                    SVG</button>
+                <button id="downloadPdfBtn" class="btn btn-outline btn-sm"><i class="fas fa-file-pdf"></i> PDF</button>
+            </div>
+        </div>
+
+        <div class="qr-list">
+            <div class="divider"></div>
+            <h2><i class="fas fa-database"></i> Your saved QR codes</h2>
+            <div id="qrListContainer" class="qr-grid"></div>
+            <p id="noQrMessage" style="color: #64748b; text-align: center; padding: 2rem;">
+                No saved QR codes yet. Create one above!
+            </p>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Message</div>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f4f7fc;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh; padding: 1.5rem;
+    }
+
+    .auth-screen {
+      width: 100%; max-width: 440px; background: white;
+      border-radius: 2rem;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      padding: 2.5rem 2rem;
+    }
+    .auth-screen h1 {
+      font-size: 1.8rem; font-weight: 700; color: #0f172a;
+      text-align: center; margin-bottom: 0.35rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    }
+    .auth-screen .subtitle {
+      text-align: center; color: #64748b; font-size: 0.9rem;
+      margin-bottom: 1.75rem;
+    }
+    .auth-tabs {
+      display: flex; background: #f1f5f9; border-radius: 1rem;
+      padding: 0.3rem; margin-bottom: 1.5rem;
+    }
+    .auth-tab {
+      flex: 1; padding: 0.7rem; text-align: center;
+      border-radius: 0.8rem; font-weight: 500; cursor: pointer;
+      font-size: 0.9rem; color: #64748b; transition: 0.2s;
+      border: none; background: transparent;
+    }
+    .auth-tab.active {
+      background: white; color: #0f172a;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .form-group { margin-bottom: 1.25rem; }
+    label {
+      display: block; font-size: 0.85rem; font-weight: 500;
+      color: #475569; margin-bottom: 0.4rem;
+    }
+    input, select {
+      width: 100%; padding: 0.75rem 1rem; border-radius: 1rem;
+      border: 1px solid #e2e8f0; background: white;
+      font-size: 0.95rem; transition: 0.2s;
+    }
+    input:focus, select:focus {
+      outline: none; border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+    }
+    input:disabled, select:disabled {
+      background: #f1f5f9; color: #94a3b8; cursor: not-allowed;
+    }
+    .btn {
+      border: none; padding: 0.6rem 1.2rem; border-radius: 2rem;
+      font-weight: 500; font-size: 0.9rem; display: inline-flex;
+      align-items: center; justify-content: center; gap: 0.5rem;
+      cursor: pointer; transition: all 0.2s;
+      background: white; color: #0f172a; border: 1px solid #cbd5e1;
+    }
+    .btn-primary {
+      background: #3b82f6; color: white; border: none;
+      box-shadow: 0 4px 10px rgba(59,130,246,0.3);
+    }
+    .btn-primary:hover:not(:disabled) { background: #2563eb; transform: translateY(-1px); }
+    .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; transform: none; }
+    .btn-outline { background: transparent; border: 1px solid #cbd5e1; }
+    .btn-outline:hover:not(:disabled) { background: #f1f5f9; }
+    .btn-danger { background: #ef4444; color: white; border: none; }
+    .btn-danger:hover { background: #dc2626; }
+    .btn-sm { padding: 0.4rem 0.9rem; font-size: 0.8rem; }
+    .btn-block { width: 100%; }
+
+    .auth-message {
+      font-size: 0.85rem; margin-top: 0.85rem;
+      min-height: 1.2rem; text-align: center;
+    }
+    .auth-message.error { color: #dc2626; }
+    .auth-message.success { color: #16a34a; }
+
+    .app-container {
+      max-width: 1400px; width: 100%;
+      border-radius: 2rem;
+      padding: 2rem; display: grid;
+      grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .app-container { grid-template-columns: 1fr; padding: 1.5rem; }
+    }
+    h1 {
+      font-size: 2rem; font-weight: 600; color: #0f172a;
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+    }
+    .auth-section {
+      grid-column: 1 / -1; display: flex; justify-content: space-between;
+      align-items: center; background: #eef2ff; padding: 0.75rem 1.5rem;
+      border-radius: 3rem; margin-bottom: 0.5rem;
+    }
+    .user-info {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-weight: 500; color: #1e293b; font-size: 0.9rem;
+    }
+    .color-row { display: flex; gap: 1rem; align-items: center; }
+    .color-row input[type="color"] {
+      width: 60px; height: 48px; padding: 0.2rem;
+      border-radius: 0.75rem; cursor: pointer;
+    }
+    .qr-preview {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; background: #f8fafc; border-radius: 2rem;
+      padding: 1.5rem; border: 1px dashed #cbd5e1;
+    }
+    #qrcodeCanvas {
+      max-width: 100%; height: auto; border-radius: 1rem;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+      background: white; padding: 0.5rem;
+    }
+    .action-buttons {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      margin-top: 1.5rem; justify-content: center;
+    }
+    .qr-list { grid-column: 1 / -1; margin-top: 1rem; }
+    .qr-list h2 {
+      font-size: 1.3rem; font-weight: 600; color: #0f172a;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .qr-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .qr-card {
+      background: white; border-radius: 1.5rem; padding: 1rem;
+      border: 1px solid #e2e8f0; display: flex; flex-direction: column;
+      align-items: center; transition: 0.2s;
+    }
+    .qr-card:hover { box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); }
+    .qr-card canvas {
+      max-width: 100%; height: auto; border-radius: 0.75rem;
+      background: white; padding: 0.25rem;
+    }
+    .qr-card .url-text {
+      font-size: 0.75rem; color: #64748b; word-break: break-all;
+      text-align: center; margin: 0.75rem 0 0.5rem; max-width: 100%;
+    }
+    .card-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem; background: #1e293b;
+      color: white; padding: 1rem 1.5rem; border-radius: 3rem;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+      font-weight: 500; opacity: 0; transition: opacity 0.3s;
+      pointer-events: none; z-index: 999;
+    }
+    .toast.show { opacity: 1; }
+    .hidden { display: none !important; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; }
+    .divider { height: 1px; background: #e2e8f0; margin: 1.5rem 0; }
+ 
